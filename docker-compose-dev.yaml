@@ -3,6 +3,7 @@ services:
   front-react:
     build:
       context: ./client
+      dockerfile: Dockerfile-dev
 
     environment:
       NODE_ENV: development
@@ -17,6 +18,7 @@ services:
   server-dev:
     build:
       context: ./server
+      dockerfile: Dockerfile-dev
 
     environment:
       NODE_ENV: development

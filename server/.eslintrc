@@ -5,10 +5,7 @@
     "browser": true,
     "es6": true
   },
-  "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module"
-  },
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "comma-dangle": ["error", "only-multiline"],
     "comma-spacing": [
@@ -30,7 +27,7 @@
     "no-new-symbol": "error",
     "no-trailing-spaces": ["warn"],
     "no-undef": ["warn"],
-    "no-unused-vars": ["warn"],
+    "no-unused-vars": ["warn", { "vars": "all", "args": "all" }],
     "object-curly-spacing": ["warn", "always"],
     "object-shorthand": "error",
     "prefer-const": 2,

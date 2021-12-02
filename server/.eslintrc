@@ -26,17 +26,17 @@
         "MemberExpression": 1
       }
     ],
-    "no-multiple-empty-lines": ["error"],
+    "no-multiple-empty-lines": ["warn"],
     "no-new-symbol": "error",
-    "no-trailing-spaces": ["error"],
-    "no-undef": ["error"],
+    "no-trailing-spaces": ["warn"],
+    "no-undef": ["warn"],
     "no-unused-vars": ["warn"],
-    "object-curly-spacing": ["error", "always"],
+    "object-curly-spacing": ["warn", "always"],
     "object-shorthand": "error",
     "prefer-const": 2,
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "space-in-parens": ["error", "never"],
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"],
+    "space-in-parens": ["warn", "never"],
     "strict": [2, "never"]
   }
 }

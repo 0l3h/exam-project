@@ -1,9 +1,11 @@
 {
+  "parser": "babel-eslint",
+
   "extends": "eslint:recommended",
 
   "rules": {
     "semi": ["warn", "always"],
-    "quotes": ["warn", "single"],
+    "quotes": ["warn", "single", { "avoidEsape": true }],
     "jsx-quotes": ["warn", "prefer-single"]
   }
 }

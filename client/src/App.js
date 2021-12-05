@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -22,7 +22,7 @@ import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatCo
 class App extends Component {
   render () {
     return (
-      <Router history={browserHistory}>
+      <BrowserRouter history={browserHistory}>
         <ToastContainer
           position='top-center'
           autoClose={5000}
@@ -86,7 +86,7 @@ class App extends Component {
           <Route component={NotFound} />
         </Switch>
         <ChatContainer />
-      </Router>
+      </BrowserRouter>
     );
   }
 }

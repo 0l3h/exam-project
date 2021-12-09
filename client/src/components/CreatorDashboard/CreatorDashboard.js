@@ -87,7 +87,7 @@ class CreatorDashboard extends React.Component {
     );
   };
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
       this.parseUrlForParams(nextProps.location.search);
     }

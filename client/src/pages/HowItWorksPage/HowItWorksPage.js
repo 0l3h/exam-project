@@ -1,11 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 import Header from '../../components/Header/Header'
-import CONSTANTS from '../../constants'
 import styles from './HowItWorksPage.module.sass'
+import Footer from '../../components/Footer/Footer'
 
 class HowItWorksPage extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      isActive: false
+    }
+  }
+
   render () {
+    const { isActive } = this.state
+
+    const showContent = () => {
+      this.setState(state => ({
+        isActive: !state.isActive
+      }))
+    }
+
     return (
       <>
         <Header />
@@ -124,12 +140,12 @@ class HowItWorksPage extends React.Component {
             <div className={styles.QAList}>
               <h2 id='launching-a-contest'>Launching A Contest</h2>
 
-              <ul className={styles.QASection}>
-                <li>
-                  <span>
+              <ul>
+                <li onClick={showContent}>
+                  <span className={styles.questionContent}>
                     How long does it take to start receiving submissions?
                   </span>
-                  <div>
+                  <div className={contentStyle}>
                     For Naming contests, you will start receiving your
                     submissions within few minutes of launching your contest.
                     Since our creatives are located across the globe, you can
@@ -138,9 +154,11 @@ class HowItWorksPage extends React.Component {
                   </div>
                 </li>
 
-                <li>
-                  <span>How long do Naming Contests last?</span>
-                  <div>
+                <li onClick={showContent}>
+                  <span className={styles.questionContent}>
+                    How long do Naming Contests last?
+                  </span>
+                  <div className={contentStyle}>
                     You can choose a duration from 1 day to 7 days. We recommend
                     a duration of 3 Days or 5 Days. This allows for sufficient
                     time for entry submission as well as brainstorming with
@@ -151,9 +169,11 @@ class HowItWorksPage extends React.Component {
                   </div>
                 </li>
 
-                <li>
-                  <span>Where are the creatives located?</span>
-                  <div>
+                <li onClick={showContent}>
+                  <span className={styles.questionContent}>
+                    Where are the creatives located?
+                  </span>
+                  <div className={contentStyle}>
                     About 70% of our Creatives are located in the United States
                     and other English speaking countries (i.e. United Kingdom,
                     Canada, and Australia.). We utilize an advanced rating score
@@ -163,8 +183,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>What if I do not like any submissions?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    What if I do not like any submissions?
+                  </span>
+                  <div className={contentStyle}>
                     While it is unusually rare that you will not like any names
                     provided, we have a few options in case this problem occurs:
                     If the contest ends and you have not yet found a name that
@@ -178,13 +200,15 @@ class HowItWorksPage extends React.Component {
                     Guaranteed", you can request a partial refund if you choose
                     not to move forward with any name from you project. (Please
                     note that the refund is for the contest award). Here is a
-                    link to our <a href='#'>Refund Policy</a>
+                    link to our
                   </div>
                 </li>
 
                 <li>
-                  <span>How much does it cost?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    How much does it cost?
+                  </span>
+                  <div className={styles.answerContent}>
                     Our naming competitions start at $299, and our logo design
                     competitions start at $299. Also, there are three additional
                     contest level that each offer more features and benefits.
@@ -193,22 +217,24 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>
+                  <span className={styles.questionContent}>
                     I need both a Name and a Logo. Do you offer any discount for
                     multiple contests?
                   </span>
-                  <div>
+                  <div className={styles.answerContent}>
                     Yes! We have many contest bundles - our most popular being
                     our Name, Tagline, and Logo bundle. Bundles allow you to
                     purchase multiple contests at one time and save as much as
                     from $75 - $400. You can learn more about our bundle options
-                    on our <Link to='/dashboard'>Pricing Page</Link>.
+                    on our .
                   </div>
                 </li>
 
                 <li>
-                  <span>What if I want to keep my bussiness idea private?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    What if I want to keep my bussiness idea private?
+                  </span>
+                  <div className={styles.answerContent}>
                     You can select a Non Disclosure Agreement (NDA) option at
                     the time of launching your competition. This will ensure
                     that only those contestants who agree to the NDA will be
@@ -219,8 +245,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>Can you serve the customers outside the US?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    Can you serve the customers outside the US?
+                  </span>
+                  <div className={styles.answerContent}>
                     Absolutely. Squadhelp services organizations across the
                     globe. Our customer come from many countries, such as the
                     United States, Australia, Canada, Europe, India, and MENA.
@@ -229,8 +257,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>Can I see any examples?</span>
-                  <ul>
+                  <span className={styles.questionContent}>
+                    Can I see any examples?
+                  </span>
+                  <ul className={styles.answerContent}>
                     Our creatives have submitted more than 6 Million names and
                     thousands of logos on our platform. Here are some examples
                     of Names, Taglines, and Logos that were submitted in recent
@@ -254,8 +284,10 @@ class HowItWorksPage extends React.Component {
 
               <ul>
                 <li>
-                  <span>What's included with a Domain Purchase?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    What's included with a Domain Purchase?
+                  </span>
+                  <div className={styles.answerContent}>
                     When you purchase a domain from our premium domain
                     marketplace, you will receive the exact match .com URL, a
                     complimentary logo design (along with all source files), as
@@ -265,8 +297,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>How does a domain transfer process work?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    How does a domain transfer process work?
+                  </span>
+                  <div className={styles.answerContent}>
                     Once you purchase a Domain, our transfer specialists will
                     reach out to you (typically on the same business day). In
                     most cases we can transfer the domain to your preferred
@@ -277,11 +311,11 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>
+                  <span className={styles.questionContent}>
                     If I purchase a Domain on installments, can I start using it
                     to setup my website?
                   </span>
-                  <div>
+                  <div className={styles.answerContent}>
                     We offer payment plans for many domains in our Marketplace.
                     If you purchase a domain on a payment plan, we hold the
                     domain in an Escrow account until it is fully paid off.
@@ -299,8 +333,10 @@ class HowItWorksPage extends React.Component {
 
               <ul>
                 <li>
-                  <span>What are Managed Contests?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    What are Managed Contests?
+                  </span>
+                  <div className={styles.answerContent}>
                     The 'Managed' option is a fully managed service by Squadhelp
                     Branding experts. It includes a formal brief preparation by
                     Squadhelp team and management of your contest. Managed
@@ -317,8 +353,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>What's a typical timeline for a Managed Contests?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    What's a typical timeline for a Managed Contests?
+                  </span>
+                  <div className={styles.answerContent}>
                     The overall process takes 12-13 days.
                     <ul>
                       <li>
@@ -351,8 +389,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>How much do Managed Contests cost?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    How much do Managed Contests cost?
+                  </span>
+                  <div className={styles.answerContent}>
                     We offer two levels of Managed Contests. Standard ($999) and
                     Enterprise ($1999). The Enterprise managed contest includes:
                     <ul>
@@ -383,8 +423,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>Where are the Branding Consultants located?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    Where are the Branding Consultants located?
+                  </span>
+                  <div className={styles.answerContent}>
                     All our branding consultants are based in in our
                     Headquarters (Hoffman Estates, IL). Our branding consultants
                     have many years of experience in managing hundreds of
@@ -398,8 +440,10 @@ class HowItWorksPage extends React.Component {
                 <h2 id='for-creatives'>For Creatives</h2>
 
                 <li>
-                  <span>Can anyone join the platform?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    Can anyone join the platform?
+                  </span>
+                  <div className={styles.answerContent}>
                     We are open to anyone to signup. However, we have an
                     extensive "Quality Scoring" process which ensures that high
                     quality creatives have the ability to continue to
@@ -410,10 +454,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>
+                  <span className={styles.questionContent}>
                     Can I start participating immediatly upon signing up?
                   </span>
-                  <div>
+                  <div className={styles.answerContent}>
                     When you initially signup, you are assigned few contests to
                     assess your overall quality of submissions. Based upon the
                     quality of your submissions, you will continue to be
@@ -425,8 +469,10 @@ class HowItWorksPage extends React.Component {
                 </li>
 
                 <li>
-                  <span>How Do I Get Paid?</span>
-                  <div>
+                  <span className={styles.questionContent}>
+                    How Do I Get Paid?
+                  </span>
+                  <div className={styles.answerContent}>
                     We handle creative payouts via Paypal or Payoneer. Depending
                     upon your country of residence, we may require additional
                     documentation to verify your identity as well as your Tax
@@ -437,6 +483,7 @@ class HowItWorksPage extends React.Component {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     )
   }

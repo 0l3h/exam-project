@@ -1,30 +1,27 @@
 import React, { useState } from 'react'
+import classNames from 'classnames'
 import styles from './SlideDownButton.module.sass'
 
 const SlideDownButton = props => {
-  const [isActive, changeStatus] = useState(false)
-
-  const showContent = () => {
-    changeStatus()
-  }
+  const [isActive, setIsActive] = useState(false)
+  const { header, content } = props
 
   const contentStyle = classNames(styles.answerContent, {
     [styles.active]: isActive,
     [styles.inactive]: !isActive
   })
+
+  const showContent = () => {
+    setIsActive(!isActive)
+  }
+
   return (
     <>
-      <li onClick={showContent}>
-        <span className={styles.questionContent}>
-          Where are the creatives located?
+      <li>
+        <span onClick={showContent} className={styles.questionContent}>
+          {header}
         </span>
-        <div className={contentStyle}>
-          About 70% of our Creatives are located in the United States and other
-          English speaking countries (i.e. United Kingdom, Canada, and
-          Australia.). We utilize an advanced rating score algorithm to ensure
-          that high quality creatives receive more opportunities to participate
-          in our contests.
-        </div>
+        <div className={contentStyle}>{content}</div>
       </li>
     </>
   )

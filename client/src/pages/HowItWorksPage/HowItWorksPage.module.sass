@@ -27,7 +27,6 @@
 .pageContainer 
     display: flex
     flex-direction: column
-    // outline: 1px solid red
     max-width: 1120px
     margin: auto
     
@@ -43,7 +42,6 @@
     align-items: center
     min-height: 40vh
     margin-top: 80px
-    // outline: 1px solid red
 
     *
         margin: 20px 0
@@ -75,14 +73,13 @@
             @include button(rgb(0, 136, 255), 26px, 6px 20px)
             width: 80%
             justify-content: center
-            margin: inherit auto
+            margin: 20px auto
         
     
 .usageOptions
     display: grid
     grid-template-columns: repeat(3, 1fr)
-    // outline: 1px solid red
-    margin-top: 100px
+    margin-top: 50px
 
     .optionsHeader
         margin: 16px
@@ -98,7 +95,6 @@
         span
             @include small-decorative-header
             margin: 20px auto
-            // outline: 1px solid blue
         
         p 
             @include paragraph($margin: 10px)
@@ -157,10 +153,10 @@
     grid-template-columns: repeat(2, 1fr)
     margin-top: 100px
     min-height: 80vh
-    // outline: 1px solid red
 
     .contestsHeader
         text-align: center
+        margin-bottom: 60px
         grid-column-start: 1
         grid-column-end: 3 
 

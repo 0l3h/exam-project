@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
-import styles from './SlideDownButton.module.sass'
+import styles from './Collapsible.module.sass'
 
-const SlideDownButton = props => {
+const Collapsible = props => {
   const [isActive, setIsActive] = useState(false)
   const { header, content } = props
 
@@ -27,4 +27,4 @@ const SlideDownButton = props => {
   )
 }
 
-export default SlideDownButton
+export default Collapsible

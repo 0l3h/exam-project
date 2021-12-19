@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Collapsible from './../../components/Collapsible/Collapsible'
+import Pricing from '../../components/Pricing/Pricing'
+import GetStarted from '../../components/GetStarted/GetStarted'
+import Stats from '../../components/Stats/Stats'
 import Header from '../../components/Header/Header'
 import styles from './HowItWorksPage.module.sass'
 import Footer from '../../components/Footer/Footer'
@@ -455,69 +458,9 @@ class HowItWorksPage extends React.Component {
             </div>
           </div>
 
-          <div className={styles.getStartedSection}>
-            <h2>Ready to get started?</h2>
-            <p>
-              Fill out your contest brief and begin receiving custom name
-              suggestions within minutes.
-            </p>
-            <Link to='/start-a-contest'>Start A Contest</Link>
-          </div>
-
-          <div></div>
-
-          <div>
-            <div>
-              <p>
-                <img src='staticImages/stars.png' alt='stars' />
-                <span>4.9 out of 5 stars</span> from 25,000+ customers.
-              </p>
-            </div>
-            <div>
-              <p>
-                <img src='staticImages/people.png' alt='stars' />
-                Our branding community stands <span>200,000+</span> strong.
-              </p>
-            </div>
-            <div>
-              <p>
-                <img src='staticImages/world-globe.png' alt='stars' />
-                <span>140+ Industries</span> supported across more than{' '}
-                <span>85 countries</span> – and counting.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <div>
-              <h3>Pay a Fraction of cost vs hiring an agency</h3>
-              <p>
-                For as low as $199, our naming contests and marketplace allow
-                you to get an amazing brand quickly and affordably.
-              </p>
-            </div>
-            <div>
-              <h3>Satisfaction Guarantee</h3>
-              <p>
-                Of course! We have policies in place to ensure that you are
-                satisfied with your experience.{' '}
-                <Link to='/learn-more'>Learn more</Link>
-              </p>
-            </div>
-            <div>
-              <h2>Questions?</h2>
-              <p>
-                Speak with a Squadhelp platform expert to learn more and get
-                your questions answered.
-              </p>
-              <Link to='schedule-consultation'>Schedule Consultation</Link>
-              <a href='tel:(877) 355-3585'>
-                <img src='staticImages/phone.png' alt='phone' />
-                (877) 355-3585
-              </a>
-              <span>Call us for assistance</span>
-            </div>
-          </div>
+          <GetStarted />
+          <Stats />
+          <Pricing />
         </div>
         <Footer />
       </>

@@ -21,7 +21,7 @@ const Collapsible = props => {
         <span onClick={showContent} className={styles.questionContent}>
           {header}
         </span>
-        <div className={contentStyle}>{content}</div>
+        <p className={contentStyle}>{content}</p>
       </li>
     </>
   )

@@ -4,6 +4,7 @@ import Collapsible from './../../components/Collapsible/Collapsible'
 import Pricing from '../../components/Pricing/Pricing'
 import GetStarted from '../../components/GetStarted/GetStarted'
 import Stats from '../../components/Stats/Stats'
+import FeaturedIn from '../../components/FeaturedIn/FeaturedIn'
 import Header from '../../components/Header/Header'
 import styles from './HowItWorksPage.module.sass'
 import Footer from '../../components/Footer/Footer'
@@ -28,7 +29,7 @@ class HowItWorksPage extends React.Component {
                 technology and Agency-level validation services.
               </p>
 
-              <a href={CONSTANTS.DESCRIPTION_VIDEO_URL}>
+              <a href={CONSTANTS.DESCRIPTION_VIDEO_URL} target='blank'>
                 <svg style={{ height: '26px', width: '26px' }}>
                   <path
                     fill='currentColor'
@@ -183,26 +184,28 @@ class HowItWorksPage extends React.Component {
                       While it is unusually rare that you will not like any
                       names provided, we have a few options in case this problem
                       occurs:
-                      <li>
-                        If the contest ends and you have not yet found a name
-                        that you’d like to move forward with, we can provide
-                        complimentary extension of your contest as well as a
-                        complimentary consultation with one of our branding
-                        consultants (a $99 value).
-                      </li>
-                      <li>
-                        By exploring our premium domain marketplace you can
-                        apply the contest award towards the purchase of any name
-                        listed for sale.
-                      </li>
-                      <li>
-                        If you choose the Gold package or Platinum package and
-                        keep the contest as "Not Guaranteed", you can request a
-                        partial refund if you choose not to move forward with
-                        any name from you project. (Please note that the refund
-                        is for the contest award). Here is a link to our{' '}
-                        <Link to='/refund-policy'>Refund Policy</Link>
-                      </li>
+                      <ul>
+                        <li>
+                          If the contest ends and you have not yet found a name
+                          that you’d like to move forward with, we can provide
+                          complimentary extension of your contest as well as a
+                          complimentary consultation with one of our branding
+                          consultants (a $99 value).
+                        </li>
+                        <li>
+                          By exploring our premium domain marketplace you can
+                          apply the contest award towards the purchase of any
+                          name listed for sale.
+                        </li>
+                        <li>
+                          If you choose the Gold package or Platinum package and
+                          keep the contest as "Not Guaranteed", you can request
+                          a partial refund if you choose not to move forward
+                          with any name from you project. (Please note that the
+                          refund is for the contest award). Here is a link to
+                          our <Link to='/refundPolicy'>Refund Policy</Link>
+                        </li>
+                      </ul>
                     </>
                   }
                 />
@@ -215,7 +218,7 @@ class HowItWorksPage extends React.Component {
                       competitions start at $299. Also, there are three
                       additional contest level that each offer more features and
                       benefits. See our{' '}
-                      <Link to='/pricing-page'>Pricing Page</Link> for details.
+                      <Link to='/pricingPage'>Pricing Page</Link> for details.
                     </>
                   }
                 />
@@ -228,8 +231,8 @@ class HowItWorksPage extends React.Component {
                       our Name, Tagline, and Logo bundle. Bundles allow you to
                       purchase multiple contests at one time and save as much as
                       from $75 - $400. You can learn more about our bundle
-                      options on our{' '}
-                      <Link to='/pricing-page'>Pricing Page</Link> .
+                      options on our <Link to='/pricingPage'>Pricing Page</Link>
+                      .
                     </>
                   }
                 />
@@ -261,13 +264,13 @@ class HowItWorksPage extends React.Component {
                       of Names, Taglines, and Logos that were submitted in
                       recent contests.
                       <li>
-                        <Link to='/name-examples'>Name Examples</Link>
+                        <Link to='/nameExamples'>Name Examples</Link>
                       </li>
                       <li>
-                        <Link to='/tagline-examples'>Tagline Examples</Link>
+                        <Link to='/taglineExamples'>Tagline Examples</Link>
                       </li>
                       <li>
-                        <Link to='/logo-examples'>Logo Examples</Link>
+                        <Link to='/logoExamples'>Logo Examples</Link>
                       </li>
                     </>
                   }
@@ -320,14 +323,13 @@ class HowItWorksPage extends React.Component {
                       preparation by Squadhelp team and management of your
                       contest. Managed Contests are a great fit for companies
                       that are looking for an "Agency" like experience and they
-                      do not want to manage the contest directly. Our branding
-                      team has directly managed hundreds of branding projects
-                      and has learned several best practices that lead to
-                      successful project outcomes. Our team will apply all best
-                      practices towards the management of your branding project.
-                      Learn more about our{' '}
-                      <Link to='/managed-contests-service'>
-                        {' '}
+                      do not want to manage the contest directly. <br />
+                      Our branding team has directly managed hundreds of
+                      branding projects and has learned several best practices
+                      that lead to successful project outcomes. Our team will
+                      apply all best practices towards the management of your
+                      branding project. Learn more about our{' '}
+                      <Link to='/managedContestsService'>
                         Managed Contest Service
                       </Link>
                       .
@@ -400,7 +402,7 @@ class HowItWorksPage extends React.Component {
 
                         <li>
                           Here is a link to our{' '}
-                          <Link to='/pricing-page'>Pricing page</Link> with a
+                          <Link to='/pricingPage'>Pricing page</Link> with a
                           detailed comparison of the two packages.
                         </li>
                       </ul>
@@ -427,11 +429,11 @@ class HowItWorksPage extends React.Component {
                     <>
                       We are open to anyone to signup. However, we have an
                       extensive "
-                      <Link to='/quality-scoring'>Quality Scoring</Link>"
-                      process which ensures that high quality creatives have the
-                      ability to continue to participate in the platform. On the
-                      other hand, we limit the participation from those
-                      creatives who do not consistently receive high ratings.
+                      <Link to='/qualityScoring'>Quality Scoring</Link>" process
+                      which ensures that high quality creatives have the ability
+                      to continue to participate in the platform. On the other
+                      hand, we limit the participation from those creatives who
+                      do not consistently receive high ratings.
                     </>
                   }
                 />
@@ -459,8 +461,12 @@ class HowItWorksPage extends React.Component {
           </div>
 
           <GetStarted />
+
           <Stats />
+
           <Pricing />
+
+          <FeaturedIn />
         </div>
         <Footer />
       </>

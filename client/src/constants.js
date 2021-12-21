@@ -77,5 +77,12 @@ export default {
       items: ['Terms of Service', 'Privacy Policy', 'Cookie Policy']
     }
   ],
-  DESCRIPTION_VIDEO_URL: 'https://vimeo.com/368584367'
+  DESCRIPTION_VIDEO_URL: 'https://vimeo.com/368584367',
+  FORBES_URL:
+    'http://www.forbes.com/sites/forbestreptalks/2016/07/11/not-sure-how-to-name-a-startup-squadhelp-will-crowdsource-it-for-199',
+  CHICAGO_URL:
+    'http://www.chicagotribune.com/bluesky/originals/ct-squadhelp-startup-names-bsi-20170331-story.html',
+  THE_NEXT_WEB_URL:
+    'http://thenextweb.com/contributors/crowdsource-startup-name-with-squadhelp/',
+  MASHABLE_URL: 'http://mashable.com/2011/04/01/make-money-crowdworking/'
 }

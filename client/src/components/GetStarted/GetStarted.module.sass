@@ -1,9 +1,36 @@
 .getStartedSection
-    outline: 1px solid red
-    box-sizing: border-box
+    position: relative
     display: flex
     flex-direction: column
+    justify-content: center
     align-items: center
+    text-align: center
     align-self: center
-    width: fit-content
-    background: linear-gradient(160deg, #0066ff, #00bfff)
+    width: calc(100vw - 55px) 
+    padding: 20px
+    background: linear-gradient(160deg, #0003b4, #00bfff)
+    height: 200px
+
+    p
+        color: white
+
+    *
+        margin: 10px 0
+
+    h2
+        color: rgb(0, 225, 255)
+        font-size: 32px
+        font-weight: 500
+
+
+    .startAContestButton
+        text-decoration: none
+        padding: 20px
+        color: black
+        border-radius: 5px
+        background-color: white
+        transition: all .2s ease-in-out
+
+    .startAContestButton:hover
+        transform: translate(0, -4px)
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.575)

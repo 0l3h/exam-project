@@ -10,7 +10,9 @@ const GetStarted = () => {
         Fill out your contest brief and begin receiving custom name suggestions
         within minutes.
       </p>
-      <Link to='/start-a-contest'>Start A Contest</Link>
+      <Link className={styles.startAContestButton} to='/startContest'>
+        Start A Contest
+      </Link>
     </div>
   )
 }

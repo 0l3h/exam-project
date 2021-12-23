@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Header from '../../components/Header/Header'
 import CONSTANTS from '../../constants'
 import SlideBar from '../../components/SlideBar/SlideBar'
-import ButtonGroup from '../../components/ButtonGroup/ButtonGroup'
 import Footer from '../../components/Footer/Footer'
 import styles from './Home.module.sass'
 import carouselConstants from '../../carouselConstants'
@@ -39,7 +38,6 @@ const Home = props => {
       ) : (
         <>
           <div className={styles.container}>
-            <ButtonGroup />
             <div className={styles.headerBar}>
               <div className={styles.headline}>
                 <span>Find the Perfect Name for</span>

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { format, compareDesc, getTime } from 'date-fns'
 import { Form, Field, Formik, ErrorMessage } from 'formik'
 import * as yup from 'yup'
-import { format, compareDesc } from 'date-fns'
 import Header from './../../components/Header/Header'
 import Footer from './../../components/Footer/Footer'
 import styles from './Events.module.sass'
-import Event from './Event/Event'
+import EventsList from './EventsList/EventsList'
 
 function Events () {
   const [events, setEvents] = useState([])
   const [dates, setDates] = useState([])
-
-  const currentDate = format(Date.now(), 'yyyy-MM-dd')
 
   const initialValues = {
     eventName: '',
@@ -19,10 +17,6 @@ function Events () {
     eventTime: '',
     remindTime: ''
   }
-
-  // useEffect(() => {
-  //   dates.sort(compareDesc)
-  // }, events.length)
 
   const schema = yup.object().shape({
     eventName: yup
@@ -32,17 +26,24 @@ function Events () {
       .required(),
     eventDate: yup
       .date()
-      .min(currentDate)
+      .min(format(Date.now(), 'yyyy-MM-dd'))
       .required(),
     eventTime: yup.string().required(),
     remindTime: yup.string().required()
   })
 
-  const submitEvent = values => {
-    console.log(values)
-  }
+  const submitEvent = (values, { resetForm }) => {
+    const { eventName, eventDate, eventTime } = values
 
-  console.log(`format(Date.now(), 'yyyy')`, format(Date.now(), 'yyyy'))
+    setDates(
+      events.push({
+        eventName,
+        eventDate: new Date(Date.parse(`${eventDate}T${eventTime}`))
+      })
+    )
+
+    resetForm()
+  }
 
   return (
     <>
@@ -57,25 +58,33 @@ function Events () {
             <label className={styles.eventInput}>
               <span>Event name</span>
               <Field type='text' name='eventName' />
-              <ErrorMessage name='eventName' />
+              <div className={styles.errorMessage}>
+                <ErrorMessage name='eventName' />
+              </div>
             </label>
 
             <label className={styles.eventInput}>
               <span>Event date</span>
-              <Field type='date' name='eventDate' defaultValue={currentDate} />
-              <ErrorMessage name='eventDate' />
+              <Field type='date' name='eventDate' />
+              <div className={styles.errorMessage}>
+                <ErrorMessage name='eventDate' />
+              </div>
             </label>
 
             <label className={styles.eventInput}>
               <span>Event time</span>
               <Field type='time' name='eventTime' />
-              <ErrorMessage name='eventTime' />
+              <div className={styles.errorMessage}>
+                <ErrorMessage name='eventTime' />
+              </div>
             </label>
 
             <label className={styles.eventInput}>
-              <span>Before the event, remind me in</span>
+              <span>Remind me in</span>
               <Field type='time' name='remindTime' />
-              <ErrorMessage name='remindTime' />
+              <div className={styles.errorMessage}>
+                <ErrorMessage name='remindTime' />
+              </div>
             </label>
 
             <button type='submit'>submit</button>
@@ -87,18 +96,7 @@ function Events () {
             <span>Remaining time</span>
           </div>
           <hr />
-          <div className={styles.eventsList}>
-            <Event eventName='Start a Name contest' />
-            <Event eventName='Check blacklist' />
-            <Event eventName='Edit profile' />
-            <Event eventName='Chat a creative' />
-            <Event eventName='Report some changes' />
-            <Event eventName='Spam-list check on your domain' />
-            <Event eventName='HTTP status check on page url' />
-            <Event eventName='Server uptime check on hosting provider' />
-            <Event eventName='HTTP status check on homepage' />
-            <Event eventName='Start a Logo contest' />
-          </div>
+          <EventsList {...{ events }} />
         </div>
       </div>
       <Footer />

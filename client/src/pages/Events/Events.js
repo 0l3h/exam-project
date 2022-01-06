@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { format, compareDesc, getTime } from 'date-fns'
+import { v4 as uuidv4 } from 'uuid'
+import { format } from 'date-fns'
 import { Form, Field, Formik, ErrorMessage } from 'formik'
 import * as yup from 'yup'
 import Header from './../../components/Header/Header'
@@ -9,7 +10,6 @@ import EventsList from './EventsList/EventsList'
 
 function Events () {
   const [events, setEvents] = useState([])
-  const [dates, setDates] = useState([])
 
   const initialValues = {
     eventName: '',
@@ -21,25 +21,44 @@ function Events () {
   const schema = yup.object().shape({
     eventName: yup
       .string()
-      .min(1, 'Field cannot be empty')
       .max(50, 'Event name must be less than 60 characters')
-      .required(),
+      .required('Field cannot be empty'),
     eventDate: yup
       .date()
       .min(format(Date.now(), 'yyyy-MM-dd'))
-      .required(),
-    eventTime: yup.string().required(),
-    remindTime: yup.string().required()
+      .required('Field cannot be empty'),
+    eventTime: yup.string().required('Field cannot be empty'),
+    remindTime: yup.string().required('Field cannot be empty')
   })
+
+  const sortingFunction = (eventLeft, eventRight) => {
+    if (eventLeft.eventDate < eventRight.eventDate) {
+      return -1
+    }
+    if (eventLeft.eventDate > eventRight.eventDate) {
+      return 1
+    }
+    return 0
+  }
 
   const submitEvent = (values, { resetForm }) => {
     const { eventName, eventDate, eventTime } = values
 
-    setDates(
-      events.push({
-        eventName,
-        eventDate: new Date(Date.parse(`${eventDate}T${eventTime}`))
-      })
+    const id = uuidv4()
+    localStorage.setItem(
+      `intervalTime${id}`,
+      new Date(Date.parse(`${eventDate}T${eventTime}`)) - Date.now()
+    )
+
+    setEvents(events =>
+      [
+        ...events,
+        {
+          id,
+          eventName,
+          eventDate: new Date(Date.parse(`${eventDate}T${eventTime}`))
+        }
+      ].sort(sortingFunction)
     )
 
     resetForm()

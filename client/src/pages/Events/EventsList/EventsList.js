@@ -7,9 +7,16 @@ function EventsList (props) {
 
   return (
     <div className={styles.eventsList}>
-      {events.map((event, index) => (
-        <Event key={index} {...event} />
-      ))}
+      {events.length === 0 ? (
+        <div className={styles.emptyList}>
+          <b>...</b>
+          <span>You have no any events yet</span>
+        </div>
+      ) : (
+        events.map(event => (
+          <Event key={event.eventDate + Math.random()} {...event} />
+        ))
+      )}
     </div>
   )
 }

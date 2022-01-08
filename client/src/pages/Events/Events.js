@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { format } from 'date-fns'
-import { Form, Field, Formik, ErrorMessage } from 'formik'
+import { Formik } from 'formik'
 import * as yup from 'yup'
+import classNames from 'classnames'
 import Header from './../../components/Header/Header'
 import Footer from './../../components/Footer/Footer'
 import styles from './Events.module.sass'
@@ -10,6 +11,8 @@ import EventsList from './EventsList/EventsList'
 
 function Events () {
   const [events, setEvents] = useState([])
+
+  // const onFocusStyles = classNames()
 
   const initialValues = {
     eventName: '',
@@ -22,24 +25,14 @@ function Events () {
     eventName: yup
       .string()
       .max(50, 'Event name must be less than 60 characters')
-      .required('Field cannot be empty'),
+      .required('Enter event name'),
     eventDate: yup
       .date()
       .min(format(Date.now(), 'yyyy-MM-dd'))
-      .required('Field cannot be empty'),
-    eventTime: yup.string().required('Field cannot be empty'),
-    remindTime: yup.string().required('Field cannot be empty')
+      .required('Indicate event date'),
+    eventTime: yup.string().required('Specify event time'),
+    remindTime: yup.string().required('Specify remind time before the event')
   })
-
-  const sortingFunction = (eventLeft, eventRight) => {
-    if (eventLeft.eventDate < eventRight.eventDate) {
-      return -1
-    }
-    if (eventLeft.eventDate > eventRight.eventDate) {
-      return 1
-    }
-    return 0
-  }
 
   const submitEvent = (values, { resetForm }) => {
     const { eventName, eventDate, eventTime } = values
@@ -64,6 +57,16 @@ function Events () {
     resetForm()
   }
 
+  const sortingFunction = (eventLeft, eventRight) => {
+    if (eventLeft.eventDate < eventRight.eventDate) {
+      return -1
+    }
+    if (eventLeft.eventDate > eventRight.eventDate) {
+      return 1
+    }
+    return 0
+  }
+
   return (
     <>
       <Header />
@@ -73,42 +76,72 @@ function Events () {
           validationSchema={schema}
           onSubmit={submitEvent}
         >
-          <Form className={styles.eventForm}>
-            <label className={styles.eventInput}>
-              <span>Event name</span>
-              <Field type='text' name='eventName' />
-              <div className={styles.errorMessage}>
-                <ErrorMessage name='eventName' />
-              </div>
-            </label>
+          {({ errors, touched, getFieldProps, handleSubmit }) => (
+            <form className={styles.eventForm} onSubmit={handleSubmit}>
+              <label className={`${styles.eventLabel} ${styles.focus}`}>
+                <span>Event name</span>
 
-            <label className={styles.eventInput}>
-              <span>Event date</span>
-              <Field type='date' name='eventDate' />
-              <div className={styles.errorMessage}>
-                <ErrorMessage name='eventDate' />
-              </div>
-            </label>
+                <input
+                  type='text'
+                  name='eventName'
+                  autoComplete='off'
+                  {...getFieldProps('eventName')}
+                  placeholder='Event name'
+                />
+                {touched.eventName && errors.eventName ? (
+                  <div className={styles.errorMessage}>{errors.eventName}</div>
+                ) : null}
+              </label>
 
-            <label className={styles.eventInput}>
-              <span>Event time</span>
-              <Field type='time' name='eventTime' />
-              <div className={styles.errorMessage}>
-                <ErrorMessage name='eventTime' />
-              </div>
-            </label>
+              <label className={`${styles.eventLabel} ${styles.focus}`}>
+                <span>Event date</span>
 
-            <label className={styles.eventInput}>
-              <span>Remind me in</span>
-              <Field type='time' name='remindTime' />
-              <div className={styles.errorMessage}>
-                <ErrorMessage name='remindTime' />
-              </div>
-            </label>
+                <input
+                  type='date'
+                  name='eventDate'
+                  autoComplete='off'
+                  {...getFieldProps('eventDate')}
+                />
+                {touched.eventDate && errors.eventDate ? (
+                  <div className={styles.errorMessage}>{errors.eventDate}</div>
+                ) : null}
+              </label>
 
-            <button type='submit'>submit</button>
-          </Form>
+              <label className={`${styles.eventLabel} ${styles.focus}`}>
+                <span>Event time</span>
+
+                <input
+                  type='time'
+                  name='eventTime'
+                  autoComplete='off'
+                  {...getFieldProps('eventTime')}
+                />
+                {touched.eventTime && errors.eventTime ? (
+                  <div className={styles.errorMessage}>{errors.eventTime}</div>
+                ) : null}
+              </label>
+
+              <label className={`${styles.eventLabel} ${styles.focus}`}>
+                <span>Remind me in</span>
+
+                <input
+                  type='time'
+                  name='remindTime'
+                  autoComplete='off'
+                  {...getFieldProps('remindTime')}
+                />
+                {touched.remindTime && errors.remindTime ? (
+                  <div className={styles.errorMessage}>{errors.remindTime}</div>
+                ) : null}
+              </label>
+
+              <button type='submit'>Add</button>
+            </form>
+          )}
         </Formik>
+        <div className={styles.outdatedEvents}>
+          <h1>Outdated events</h1>
+        </div>
         <div className={styles.events}>
           <div className={styles.eventsHeader}>
             <h1>Live upcomming checks</h1>

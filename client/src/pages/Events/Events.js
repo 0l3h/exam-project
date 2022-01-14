@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { format } from 'date-fns'
+import { format, addYears, isBefore, isValid } from 'date-fns'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import classNames from 'classnames'
 import Header from './../../components/Header/Header'
 import Footer from './../../components/Footer/Footer'
 import styles from './Events.module.sass'
-import EventsList from './EventsList/EventsList'
+import EventsList from './../../components/EventsList/EventsList'
 
 function Events () {
   const [events, setEvents] = useState([])
-
-  // const onFocusStyles = classNames()
 
   const initialValues = {
     eventName: '',
@@ -21,17 +18,63 @@ function Events () {
     remindTime: ''
   }
 
+  const regexp = /\d{2}:\d{2}/
+
   const schema = yup.object().shape({
     eventName: yup
       .string()
-      .max(50, 'Event name must be less than 60 characters')
+      .matches(/\S+/, 'Event name cannot include space characters only')
+      .max(50, 'Event name must be less than 50 characters')
       .required('Enter event name'),
     eventDate: yup
       .date()
-      .min(format(Date.now(), 'yyyy-MM-dd'))
+      .min(
+        format(Date.now(), 'yyyy-MM-dd'),
+        'Event date must be later than or equal to current date'
+      )
+      .max(
+        format(addYears(Date.now(), 1), 'yyyy-MM-dd'),
+        'Event must occur in less than one year'
+      )
       .required('Indicate event date'),
-    eventTime: yup.string().required('Specify event time'),
-    remindTime: yup.string().required('Specify remind time before the event')
+    eventTime: yup
+      .string()
+      .required('Specify event time')
+      .when('eventDate', {
+        is: eventDate => isValid(eventDate),
+        then: yup
+          .string()
+          .test(
+            'is-time-valid',
+            'Event time must be later than current time',
+            (time, { parent: { eventDate } }) =>
+              isBefore(
+                Date.now(),
+                Date.parse(`${format(eventDate, 'yyyy-MM-dd')}T${time}`)
+              )
+          )
+      }),
+    remindTime: yup
+      .string()
+      .required('Specify remind time before the event')
+      .when('eventTime', {
+        is: eventTime => {
+          return regexp.test(eventTime)
+        },
+        then: yup
+          .string()
+          .test(
+            'is-remind-time-valid',
+            'Specify remind time in proper interval',
+            (time, { parent: { eventDate, eventTime } }) => {
+              if (regexp.test(time)) {
+                const timeInMinutes =
+                  time.substring(0, 2) * 60 + time.substring(3)
+                return true
+              }
+            }
+          )
+      })
   })
 
   const submitEvent = (values, { resetForm }) => {
@@ -39,8 +82,8 @@ function Events () {
 
     const id = uuidv4()
     localStorage.setItem(
-      `intervalTime${id}`,
-      new Date(Date.parse(`${eventDate}T${eventTime}`)) - Date.now()
+      `timeAmount${id}`,
+      Date.parse(`${eventDate}T${eventTime}`) - Date.now()
     )
 
     setEvents(events =>
@@ -49,7 +92,7 @@ function Events () {
         {
           id,
           eventName,
-          eventDate: new Date(Date.parse(`${eventDate}T${eventTime}`))
+          eventDate: Date.parse(`${eventDate}T${eventTime}`)
         }
       ].sort(sortingFunction)
     )
@@ -78,7 +121,7 @@ function Events () {
         >
           {({ errors, touched, getFieldProps, handleSubmit }) => (
             <form className={styles.eventForm} onSubmit={handleSubmit}>
-              <label className={`${styles.eventLabel} ${styles.focus}`}>
+              <label className={styles.eventInput}>
                 <span>Event name</span>
 
                 <input
@@ -86,14 +129,13 @@ function Events () {
                   name='eventName'
                   autoComplete='off'
                   {...getFieldProps('eventName')}
-                  placeholder='Event name'
                 />
                 {touched.eventName && errors.eventName ? (
                   <div className={styles.errorMessage}>{errors.eventName}</div>
                 ) : null}
               </label>
 
-              <label className={`${styles.eventLabel} ${styles.focus}`}>
+              <label className={styles.eventInput}>
                 <span>Event date</span>
 
                 <input
@@ -107,7 +149,7 @@ function Events () {
                 ) : null}
               </label>
 
-              <label className={`${styles.eventLabel} ${styles.focus}`}>
+              <label className={styles.eventInput}>
                 <span>Event time</span>
 
                 <input
@@ -121,7 +163,7 @@ function Events () {
                 ) : null}
               </label>
 
-              <label className={`${styles.eventLabel} ${styles.focus}`}>
+              <label className={styles.eventInput}>
                 <span>Remind me in</span>
 
                 <input

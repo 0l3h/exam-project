@@ -6,9 +6,8 @@ import EventNotification from '../EventNotification/EventNotification'
 import styles from './Event.module.sass'
 
 function Event (props) {
-  const { id, eventName, eventDate } = props
+  const { eventName, eventDate, timeAmount } = props
 
-  const [timeAmount] = useState(+localStorage.getItem(`timeAmount${id}`))
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [hasTimeExpired, setHasTimeExpired] = useState(false)
 

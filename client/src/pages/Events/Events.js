@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { format, addYears, isBefore, isValid } from 'date-fns'
 import { Formik } from 'formik'
-import * as yup from 'yup'
+import Schems from './../../validators/validationSchems'
 import Header from './../../components/Header/Header'
 import Footer from './../../components/Footer/Footer'
 import styles from './Events.module.sass'
 import EventsList from './../../components/EventsList/EventsList'
 
 function Events () {
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(
+    JSON.parse(localStorage.getItem('events')) || []
+  )
 
   const initialValues = {
     eventName: '',
@@ -18,84 +19,29 @@ function Events () {
     remindTime: ''
   }
 
-  const regexp = /\d{2}:\d{2}/
-
-  const schema = yup.object().shape({
-    eventName: yup
-      .string()
-      .matches(/\S+/, 'Event name cannot include space characters only')
-      .max(50, 'Event name must be less than 50 characters')
-      .required('Enter event name'),
-    eventDate: yup
-      .date()
-      .min(
-        format(Date.now(), 'yyyy-MM-dd'),
-        'Event date must be later than or equal to current date'
-      )
-      .max(
-        format(addYears(Date.now(), 1), 'yyyy-MM-dd'),
-        'Event must occur in less than one year'
-      )
-      .required('Indicate event date'),
-    eventTime: yup
-      .string()
-      .required('Specify event time')
-      .when('eventDate', {
-        is: eventDate => isValid(eventDate),
-        then: yup
-          .string()
-          .test(
-            'is-time-valid',
-            'Event time must be later than current time',
-            (time, { parent: { eventDate } }) =>
-              isBefore(
-                Date.now(),
-                Date.parse(`${format(eventDate, 'yyyy-MM-dd')}T${time}`)
-              )
-          )
-      }),
-    remindTime: yup
-      .string()
-      .required('Specify remind time before the event')
-      .when('eventTime', {
-        is: eventTime => {
-          return regexp.test(eventTime)
-        },
-        then: yup
-          .string()
-          .test(
-            'is-remind-time-valid',
-            'Specify remind time in proper interval',
-            (time, { parent: { eventDate, eventTime } }) => {
-              if (regexp.test(time)) {
-                const timeInMinutes =
-                  time.substring(0, 2) * 60 + time.substring(3)
-                return true
-              }
-            }
-          )
-      })
-  })
-
   const submitEvent = (values, { resetForm }) => {
     const { eventName, eventDate, eventTime } = values
 
     const id = uuidv4()
-    localStorage.setItem(
-      `timeAmount${id}`,
-      Date.parse(`${eventDate}T${eventTime}`) - Date.now()
-    )
+    // localStorage.setItem(
+    //   `timeAmount${id}`,
+    //   Date.parse(`${eventDate}T${eventTime}`) - Date.now()
+    // )
 
-    setEvents(events =>
-      [
+    setEvents(events => {
+      const newEvents = [
         ...events,
         {
           id,
           eventName,
-          eventDate: Date.parse(`${eventDate}T${eventTime}`)
+          eventDate: Date.parse(`${eventDate}T${eventTime}`),
+          timeAmount: Date.parse(`${eventDate}T${eventTime}`) - Date.now()
         }
       ].sort(sortingFunction)
-    )
+
+      localStorage.setItem('events', JSON.stringify(newEvents))
+      return newEvents
+    })
 
     resetForm()
   }
@@ -116,7 +62,7 @@ function Events () {
       <div className={styles.eventsPage}>
         <Formik
           initialValues={initialValues}
-          validationSchema={schema}
+          validationSchema={Schems.EventsSchema}
           onSubmit={submitEvent}
         >
           {({ errors, touched, getFieldProps, handleSubmit }) => (

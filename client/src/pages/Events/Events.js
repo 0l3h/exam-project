@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Formik } from 'formik'
 import Schems from './../../validators/validationSchems'
@@ -12,6 +12,15 @@ function Events () {
     JSON.parse(localStorage.getItem('events')) || []
   )
 
+  useEffect(() => {
+    localStorage.setItem('events', JSON.stringify(events))
+
+    return () => {
+      // console.log(`localStorage`, localStorage.getItem('events'))
+      localStorage.clear()
+    }
+  }, [events])
+
   const initialValues = {
     eventName: '',
     eventDate: '',
@@ -19,17 +28,17 @@ function Events () {
     remindTime: ''
   }
 
+  const deleteEvent = id => {
+    setEvents(() => events.filter(event => event.id !== id))
+  }
+
   const submitEvent = (values, { resetForm }) => {
     const { eventName, eventDate, eventTime } = values
 
     const id = uuidv4()
-    // localStorage.setItem(
-    //   `timeAmount${id}`,
-    //   Date.parse(`${eventDate}T${eventTime}`) - Date.now()
-    // )
 
     setEvents(events => {
-      const newEvents = [
+      return [
         ...events,
         {
           id,
@@ -38,9 +47,6 @@ function Events () {
           timeAmount: Date.parse(`${eventDate}T${eventTime}`) - Date.now()
         }
       ].sort(sortingFunction)
-
-      localStorage.setItem('events', JSON.stringify(newEvents))
-      return newEvents
     })
 
     resetForm()
@@ -136,7 +142,7 @@ function Events () {
             <span>Remaining time</span>
           </div>
           <hr />
-          <EventsList {...{ events }} />
+          <EventsList {...{ events }} deleteEvent={deleteEvent} />
         </div>
       </div>
       <Footer />

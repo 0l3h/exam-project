@@ -4,7 +4,7 @@ import styles from './EventsList.module.sass'
 import Event from '../Event/Event'
 
 function EventsList (props) {
-  const { events } = props
+  const { events, deleteEvent } = props
 
   return (
     <div className={styles.eventsList}>
@@ -14,7 +14,9 @@ function EventsList (props) {
           <span>You have no any events yet</span>
         </div>
       ) : (
-        events.map(event => <Event key={uuidv4()} {...event} />)
+        events.map(event => (
+          <Event key={uuidv4()} {...event} deleteEvent={deleteEvent} />
+        ))
       )}
     </div>
   )

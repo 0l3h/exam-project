@@ -6,10 +6,20 @@ import EventNotification from '../EventNotification/EventNotification'
 import styles from './Event.module.sass'
 
 function Event (props) {
-  const { eventName, eventDate, timeAmount } = props
-
+  const { id, eventName, eventDate, timeAmount, deleteEvent } = props
+  console.log(`Event id`, id)
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [hasTimeExpired, setHasTimeExpired] = useState(false)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(currentTime => new Date(addSeconds(currentTime, 1)))
+    }, 1000)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
 
   const eventAlert = () => {
     toast.error(<EventNotification />, {
@@ -18,23 +28,15 @@ function Event (props) {
   }
 
   if (eventDate - currentTime <= 0 && !hasTimeExpired) {
+    deleteEvent(id)
     eventAlert()
     setHasTimeExpired(true)
   }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentTime(new Date(addSeconds(currentTime, 1)))
-    }, 1000)
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [currentTime])
-
   const timerStyles = {
     width: `${(100 * (timeAmount - (eventDate - currentTime))) / timeAmount}%`
   }
+  console.log(`timerStyles.width`, timerStyles.width)
 
   const duration = intervalToDuration({
     start: currentTime,

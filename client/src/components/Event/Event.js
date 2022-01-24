@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { addSeconds, formatDuration, intervalToDuration } from 'date-fns'
 import { toast } from 'react-toastify'
+import PropTypes from 'prop-types'
+import { addOutdatedEvent, deleteEvent } from './../../actions/actionCreator'
 import EventNotification from '../EventNotification/EventNotification'
-
 import styles from './Event.module.sass'
 
 function Event (props) {
-  const { id, eventName, eventDate, timeAmount, deleteEvent } = props
-  console.log(`Event id`, id)
+  const { id, eventName, eventDate, timeAmount } = props
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [hasTimeExpired, setHasTimeExpired] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,22 +23,24 @@ function Event (props) {
     }
   }, [])
 
+  useEffect(() => {
+    if (eventDate - currentTime <= 0 && !hasTimeExpired) {
+      setHasTimeExpired(true)
+      dispatch(deleteEvent({ id }))
+      dispatch(addOutdatedEvent({ id, eventName }))
+      eventAlert()
+    }
+  }, [currentTime])
+
   const eventAlert = () => {
     toast.error(<EventNotification />, {
       position: toast.POSITION.TOP_CENTER
     })
   }
 
-  if (eventDate - currentTime <= 0 && !hasTimeExpired) {
-    deleteEvent(id)
-    eventAlert()
-    setHasTimeExpired(true)
-  }
-
   const timerStyles = {
     width: `${(100 * (timeAmount - (eventDate - currentTime))) / timeAmount}%`
   }
-  console.log(`timerStyles.width`, timerStyles.width)
 
   const duration = intervalToDuration({
     start: currentTime,
@@ -44,14 +48,19 @@ function Event (props) {
   })
 
   return (
-    <>
-      <div className={styles.event}>
-        <div className={styles.timerStyles} style={timerStyles}></div>
-        <span className={styles.eventName}>{eventName}</span>
-        <span className={styles.remainingTime}>{formatDuration(duration)}</span>
-      </div>
-    </>
+    <div className={styles.event}>
+      <div className={styles.timer} style={timerStyles}></div>
+      <span className={styles.eventName}>{eventName}</span>
+      <span className={styles.remainingTime}>{formatDuration(duration)}</span>
+    </div>
   )
+}
+
+Event.propTypes = {
+  id: PropTypes.string.isRequired,
+  eventName: PropTypes.string.isRequired,
+  eventDate: PropTypes.number.isRequired,
+  timeAmount: PropTypes.number.isRequired
 }
 
 export default Event

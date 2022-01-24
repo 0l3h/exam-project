@@ -5,7 +5,8 @@ import {
   addYears,
   isBefore,
   subMinutes,
-  hoursToMinutes
+  hoursToMilliseconds,
+  minutesToMilliseconds
 } from 'date-fns'
 
 const regexp = /\d{2}:\d{2}/
@@ -274,28 +275,14 @@ const schemas = {
         'Specify remind time in proper interval',
         (remindTime, { parent: { eventDate, eventTime } }) => {
           if (regexp.test(remindTime) && regexp.test(eventTime) && eventDate) {
-            const eventTimeDate = Date.parse(
-              `${format(eventDate, 'yyyy-MM-dd')}T${eventTime}`
+            const eventTimeDate = new Date(
+              Date.parse(`${format(eventDate, 'yyyy-MM-dd')}T${eventTime}`)
             )
-            console.log('hours', hoursToMinutes(remindTime.substring(0, 2)))
-            console.log('minutes', remindTime.substring(3))
-            console.log(
-              'minutes',
-              hoursToMinutes(remindTime.substring(0, 2)) +
-                Number(remindTime.substring(3))
-            )
-            const timeInMinutes =
-              hoursToMinutes(remindTime.substring(0, 2)) +
-              Number(remindTime.substring(3))
+            const timeInMilliseconds =
+              hoursToMilliseconds(remindTime.substring(0, 2)) +
+              minutesToMilliseconds(remindTime.substring(3))
 
-            console.log('Minutes', timeInMinutes)
-            console.log(
-              'Event time & date',
-              `${format(eventDate, 'yyyy-MM-dd')}T${eventTime}`
-            )
-            console.log('Date diff', eventTimeDate - Date.now())
-
-            return eventTimeDate - Date.now() >= timeInMinutes
+            return eventTimeDate - Date.now() >= timeInMilliseconds
           }
         }
       )

@@ -2,8 +2,12 @@
     box-shadow: 0 0 12px 1px rgb(216, 216, 216)
     padding: 24px
     border-radius: 5px
+    width: 30%
+    
 
     .list
+        overflow: auto
+        max-height: 210px
         min-height: 100px
 
         .emptyListSign
@@ -20,3 +24,14 @@
                 overflow: hidden
                 text-overflow: ellipsis
 
+::-webkit-scrollbar
+    width: 12px
+
+::-webkit-scrollbar-track 
+    background: #f1f1f1
+
+::-webkit-scrollbar-thumb
+    background: #a6a6a6
+
+::-webkit-scrollbar-thumb:hover
+    background: #7e7e7e

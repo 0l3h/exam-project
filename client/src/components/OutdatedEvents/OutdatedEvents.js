@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 import styles from './OutdatedEvents.module.sass'
 
 function OutdatedEvents () {
-  const outdatedEvents = useSelector(
-    ({ eventsStore: { outdatedEvents } }) => outdatedEvents
+  const [events, outdatedEvents] = useSelector(
+    ({ eventsStore: { events, outdatedEvents } }) => [events, outdatedEvents]
   )
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function OutdatedEvents () {
     return () => {
       localStorage.clear()
     }
-  }, [outdatedEvents])
+  }, [events])
 
   return (
     <div className={styles.outdatedEvents}>

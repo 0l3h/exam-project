@@ -10,7 +10,7 @@ export default function eventsReducer (state = initialState, action) {
 
   switch (type) {
     case ACTION.ADD_NEW_EVENT: {
-      const { id, eventName, eventDate, timeAmount } = data
+      const { id, eventName, eventDate, timeAmount, remindTime } = data
 
       const sortingFunction = (eventLeft, eventRight) => {
         if (eventLeft.eventDate < eventRight.eventDate) {
@@ -30,7 +30,8 @@ export default function eventsReducer (state = initialState, action) {
             id,
             eventName,
             eventDate,
-            timeAmount
+            timeAmount,
+            remindTime
           }
         ].sort(sortingFunction)
       }

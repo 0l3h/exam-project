@@ -2,7 +2,9 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { Formik } from 'formik'
+import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns'
 import { addNewEvent } from './../../actions/actionCreator'
+import Input from './Input/Input'
 import Schems from './../../validators/validationSchems'
 import styles from './EventForm.module.sass'
 
@@ -16,7 +18,10 @@ function EventForm (props) {
     remindTime: ''
   }
 
-  const addEvent = ({ eventName, eventDate, eventTime }, { resetForm }) => {
+  const addEvent = (
+    { eventName, eventDate, eventTime, remindTime },
+    { resetForm }
+  ) => {
     const id = uuidv4()
     const eventDateTime = Date.parse(`${eventDate}T${eventTime}`)
 
@@ -25,7 +30,10 @@ function EventForm (props) {
         id,
         eventName,
         eventDate: eventDateTime,
-        timeAmount: eventDateTime - Date.now()
+        timeAmount: eventDateTime - Date.now(),
+        remindTime:
+          hoursToMilliseconds(remindTime.substring(0, 2)) +
+          minutesToMilliseconds(remindTime.substring(3))
       })
     )
 
@@ -38,63 +46,35 @@ function EventForm (props) {
       validationSchema={Schems.EventsSchema}
       onSubmit={addEvent}
     >
-      {({ errors, touched, getFieldProps, handleSubmit }) => (
-        <form className={styles.eventForm} onSubmit={handleSubmit}>
-          <label className={styles.eventInput}>
-            <span>Event name</span>
+      {formikBag => (
+        <form className={styles.eventForm} onSubmit={formikBag.handleSubmit}>
+          <Input
+            inputType='text'
+            inputName='eventName'
+            label='Event name'
+            formikBag={formikBag}
+          />
 
-            <input
-              type='text'
-              name='eventName'
-              autoComplete='off'
-              {...getFieldProps('eventName')}
-            />
-            {touched.eventName && errors.eventName ? (
-              <div className={styles.errorMessage}>{errors.eventName}</div>
-            ) : null}
-          </label>
+          <Input
+            inputType='date'
+            inputName='eventDate'
+            label='Event date'
+            formikBag={formikBag}
+          />
 
-          <label className={styles.eventInput}>
-            <span>Event date</span>
+          <Input
+            inputType='time'
+            inputName='eventTime'
+            label='Event time'
+            formikBag={formikBag}
+          />
 
-            <input
-              type='date'
-              name='eventDate'
-              autoComplete='off'
-              {...getFieldProps('eventDate')}
-            />
-            {touched.eventDate && errors.eventDate ? (
-              <div className={styles.errorMessage}>{errors.eventDate}</div>
-            ) : null}
-          </label>
-
-          <label className={styles.eventInput}>
-            <span>Event time</span>
-
-            <input
-              type='time'
-              name='eventTime'
-              autoComplete='off'
-              {...getFieldProps('eventTime')}
-            />
-            {touched.eventTime && errors.eventTime ? (
-              <div className={styles.errorMessage}>{errors.eventTime}</div>
-            ) : null}
-          </label>
-
-          <label className={styles.eventInput}>
-            <span>Remind me in</span>
-
-            <input
-              type='time'
-              name='remindTime'
-              autoComplete='off'
-              {...getFieldProps('remindTime')}
-            />
-            {touched.remindTime && errors.remindTime ? (
-              <div className={styles.errorMessage}>{errors.remindTime}</div>
-            ) : null}
-          </label>
+          <Input
+            inputType='time'
+            inputName='remindTime'
+            label='Remind me in'
+            formikBag={formikBag}
+          />
 
           <button type='submit'>Add</button>
         </form>

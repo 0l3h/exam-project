@@ -4,7 +4,7 @@ import {
   addSeconds,
   formatDuration,
   intervalToDuration,
-  getSeconds
+  isSameSecond
 } from 'date-fns'
 import { toast } from 'react-toastify'
 import PropTypes from 'prop-types'
@@ -28,7 +28,12 @@ function Event (props) {
   }, [])
 
   useEffect(() => {
-    console.log(getSeconds(remindTime), getSeconds(eventDate - currentTime))
+    console.log(timeAmount - remindTime)
+
+    if (isSameSecond(eventDate - remindTime, currentTime)) {
+      eventReminderAlert()
+    }
+
     if (eventDate - currentTime <= 0) {
       dispatch(deleteEvent({ id }))
       dispatch(addOutdatedEvent({ id, eventName }))
@@ -46,10 +51,6 @@ function Event (props) {
     toast.warn(<div>It's time for {eventName}</div>, {
       position: toast.POSITION.TOP_CENTER
     })
-  }
-
-  if (getSeconds(remindTime) === getSeconds(eventDate - currentTime)) {
-    eventReminderAlert()
   }
 
   const timerStyles = {

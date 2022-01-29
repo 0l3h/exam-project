@@ -17,8 +17,11 @@
     @include media-query($max-width: 1024px)
         margin: 40 10px
 
+    @media screen and (max-height: 600px) 
+        max-height: 120vh
+        
 
-    @include media-query($max-width: 769px)
-        flex-flow: row wrap
-        justify-content: center
+    @include media-query($max-width:  632px)
+        padding: 20px
         max-height: none
+        flex-wrap: nowrap

@@ -54,7 +54,6 @@ const Home = props => {
                   DASHBOARD
                 </Link>
               </div>
-              <Link to='/events'>Events</Link>
             </div>
             <div className={styles.greyContainer}>
               <SlideBar
@@ -231,6 +230,23 @@ const Home = props => {
                   src={`${CONSTANTS.STATIC_IMAGES_PATH}gif/3-compressed.gif`}
                   alt='compressed'
                 />
+              </div>
+            </div>
+            <div className={styles.events}>
+              <img
+                src={`${CONSTANTS.STATIC_IMAGES_PATH}/gif/timer.gif`}
+                alt='timer'
+              />
+              <div className={styles.serviceDescription}>
+                <span>Start writing down your events</span>
+                <p>
+                  Using this free service you don't have to worry about
+                  forgetting your events, meetings and tasks. You'll be able to
+                  set a timer and a reminder for an each one objective.
+                </p>
+                <Link className={styles.events_page__link} to='/events'>
+                  Go!
+                </Link>
               </div>
             </div>
             <div className={styles.headerBar}>

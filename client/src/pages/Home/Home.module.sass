@@ -39,13 +39,55 @@
   justify-content: flex-start
   align-items: center
 
-
   h2
     text-align: center
     font-family: Raleway, sans-serif
     margin: 30px 0
     font-size: 30px
     font-weight: 500
+
+  .events
+    display: flex
+    align-items: center
+    max-width: 1140px
+    min-height: 40vh 
+    margin: 30px auto
+
+    img
+      width: 60%
+    
+    .serviceDescription
+      display: flex
+      flex-direction: column
+
+      span
+        line-height: 39px
+        color: #03c2fc
+        font-size: 32px
+        font-weight: 500
+        margin: 16px 0
+
+      p
+        font-size: 18px
+        line-height: 25px
+
+      .events_page__link
+        text-align: center
+        margin: 16px 0
+        text-decoration: none
+        padding: 16px
+        width: 80px
+        min-width: fit-content
+        color: white
+        background-color: #03c2fc
+        border-radius: 5px
+
+    @media screen and (max-width: 784px)
+      flex-direction: column
+      margin: auto 10px
+
+      img
+        width: 100%
 
   &__description
     display: flex

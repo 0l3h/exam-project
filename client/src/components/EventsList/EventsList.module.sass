@@ -49,12 +49,16 @@
 
     @include media-query($max-width: 769px)
         .eventsHeader
+            flex-direction: column
+            align-items: flex-start
+
             h1
                 font-size: 100%
             
             span
                 font-size: 80%
-                
+                margin-top: 10px
+
         .eventsList
             min-height: 40vh
 

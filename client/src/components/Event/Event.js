@@ -9,7 +9,6 @@ import {
 import { toast } from 'react-toastify'
 import PropTypes from 'prop-types'
 import { addOutdatedEvent, deleteEvent } from './../../actions/actionCreator'
-import EventNotification from '../EventNotification/EventNotification'
 import styles from './Event.module.sass'
 
 function Event (props) {
@@ -28,8 +27,6 @@ function Event (props) {
   }, [])
 
   useEffect(() => {
-    console.log(timeAmount - remindTime)
-
     if (isSameSecond(eventDate - remindTime, currentTime)) {
       eventReminderAlert()
     }
@@ -42,13 +39,13 @@ function Event (props) {
   }, [currentTime])
 
   const eventOutdatedAlert = () => {
-    toast.error(<EventNotification />, {
+    toast.error(<span>Some of your events has been outdated</span>, {
       position: toast.POSITION.TOP_CENTER
     })
   }
 
   const eventReminderAlert = () => {
-    toast.warn(<div>It's time for {eventName}</div>, {
+    toast.warn(<span>It's time for {eventName}</span>, {
       position: toast.POSITION.TOP_CENTER
     })
   }

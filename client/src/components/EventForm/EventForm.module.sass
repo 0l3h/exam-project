@@ -1,0 +1,25 @@
+.eventForm
+    display: flex
+    flex-direction: column
+    width: 30%
+    gap: 16px
+    padding: 24px
+    box-shadow: 0 0 12px 1px rgb(216, 216, 216)
+    border-radius: 5px
+
+    button
+        width: 100%
+        min-width: fit-content
+        padding: 12px
+        border: none
+        border-radius: 5px
+        background-color: blue
+        color: white
+        margin-top: 20px
+
+    @mixin media-query($max-width)
+        @media screen and (max-width: $max-width)
+            @content
+
+    @include media-query($max-width: 632px)
+        width: 100%

@@ -1,0 +1,44 @@
+.event
+    display: flex
+    margin: 12px 0
+    background-color: rgb(224, 224, 224)
+    border-radius: 5px
+    width: 100%
+    overflow: hidden
+    position: relative
+    padding: 24px 0
+    z-index: -2
+
+    .eventName
+        min-width: 100px
+        margin-left: 24px
+        overflow: hidden
+        text-overflow: ellipsis
+
+
+    .remainingTime
+        margin-left: auto
+        margin-right: 24px
+        color: rgb(120, 120, 120)
+        font-weight: 500
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+    .timer
+        position: absolute
+        background-color: #03fc90
+        z-index: -1
+        top: 0      
+        bottom: 0
+
+    @mixin media-query($max-width)
+        @media screen and (max-width: $max-width)
+            @content
+
+    @include media-query($max-width: 632px)
+        flex-direction: column
+
+        .remainingTime
+            margin-top: 10px
+            margin-left: 24px

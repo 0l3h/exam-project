@@ -16,8 +16,9 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import 'react-toastify/dist/ReactToastify.css';
 import ContestCreationPage from './pages/ContestCreation/ContestCreationPage';
 import CONSTANTS from './constants';
-import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
 import HowItWorksPage from './pages/HowItWorksPage/HowItWorksPage';
+import ChatContainer from './components/Chat/ChatComponents/ChatContainer/ChatContainer';
+import Events from './pages/Events/Events';
 
 class App extends Component {
   render () {
@@ -53,6 +54,7 @@ class App extends Component {
             component={PrivateHoc(StartContestPage)}
           />
           <Route exact path='/howitworks' component={HowItWorksPage} />
+          <Route exact path='/events' component={Events} />
           <Route
             exact
             path='/startContest/nameContest'

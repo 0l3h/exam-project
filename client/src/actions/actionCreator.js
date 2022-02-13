@@ -293,3 +293,18 @@ export const changeModalShow = data => ({
   type: ACTION.CHANGE_SHOW_MODAL,
   data,
 });
+
+export const addNewEvent = data => ({
+  type: ACTION.ADD_NEW_EVENT,
+  data,
+});
+
+export const deleteEvent = data => ({
+  type: ACTION.DELETE_EVENT,
+  data,
+});
+
+export const addOutdatedEvent = data => ({
+  type: ACTION.ADD_OUTDATED_EVENT,
+  data,
+});

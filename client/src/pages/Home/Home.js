@@ -232,6 +232,23 @@ const Home = props => {
                 />
               </div>
             </div>
+            <div className={styles.events}>
+              <img
+                src={`${CONSTANTS.STATIC_IMAGES_PATH}/gif/timer.gif`}
+                alt='timer'
+              />
+              <div className={styles.serviceDescription}>
+                <span>Start writing down your events</span>
+                <p>
+                  Using this free service you don't have to worry about
+                  forgetting your events, meetings and tasks. You'll be able to
+                  set a timer and a reminder for an each one objective.
+                </p>
+                <Link className={styles.events_page__link} to='/events'>
+                  Go!
+                </Link>
+              </div>
+            </div>
             <div className={styles.headerBar}>
               <h3>Names For Sale</h3>
               <p className={styles.blueUnderline}>

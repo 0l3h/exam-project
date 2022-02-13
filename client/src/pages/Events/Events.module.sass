@@ -1,0 +1,27 @@
+.eventsPage
+    display: flex
+    flex-flow: column wrap
+    gap: 30px
+    max-width: 1300px
+    max-height: 100vh
+    margin: 40px auto
+    align-content: center
+
+    *
+        box-sizing: border-box
+
+    @mixin media-query($max-width)
+        @media screen and (max-width: $max-width)
+            @content
+
+    @include media-query($max-width: 1024px)
+        margin: 40 10px
+
+    @media screen and (max-height: 600px) 
+        max-height: 120vh
+        
+
+    @include media-query($max-width:  632px)
+        padding: 20px
+        max-height: none
+        flex-wrap: nowrap

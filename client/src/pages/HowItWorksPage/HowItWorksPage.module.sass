@@ -1,0 +1,248 @@
+@mixin button ($background-color: blue, $border-radius: 10px, $padding: 16px, $width: fit-content)
+    display: flex
+    align-items: center
+    width: $width
+    color: white
+    padding: $padding
+    text-decoration: none
+    height: 30px
+    background-color: $background-color
+    border-radius: $border-radius
+
+@mixin paragraph($line-height: 26px, $margin: 0)
+    color: gray
+    line-height: $line-height
+    margin: $margin
+
+@mixin small-decorative-header
+    display: block 
+    background-color: rgb(214, 247, 255)
+    border-radius: 20px
+    width: fit-content
+    height: fit-content
+    padding: 10px
+    font-size: 11px
+    color: rgb(0, 119, 255)
+    
+.pageContainer 
+    display: flex
+    flex-direction: column
+    max-width: 1120px
+    margin: auto
+
+.briefDescription
+    display: flex
+    align-items: center
+    min-height: 40vh
+    margin-top: 80px
+
+    *
+        margin: 20px 0
+
+    span
+        @include small-decorative-header
+
+    h1 
+        font-size: 40px
+        font-weight: 900
+
+    p 
+        @include paragraph
+
+    a
+        @include button(rgb(0, 136, 255), 26px, 6px 20px)
+
+    @media screen and ( max-width: 920px )
+        margin: 10px
+
+        img
+            display: none
+
+        svg
+            display: none
+
+    @media screen and (max-width: 480px) 
+        a
+            @include button(rgb(0, 136, 255), 26px, 6px 20px)
+            width: 80%
+            justify-content: center
+            margin: 20px auto
+        
+    
+.usageOptions
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    margin-top: 50px
+
+    .optionsHeader
+        text-align: center
+        margin-bottom: 40px
+        grid-column-start: 1
+        grid-column-end: 4
+        
+        h2 
+            font-size: 32px
+            margin: 20px
+        
+        span
+            @include small-decorative-header
+            margin: 20px auto
+        
+        p 
+            @include paragraph($margin: 10px)
+
+    .optionSection
+        display: flex
+        flex-direction: column
+        align-items: center
+        min-height: 50vh
+        max-width: 280px
+        padding: 60px 30px 20px
+        text-align: center
+        border: 0.5px solid rgb(231, 231, 231)
+        border-radius: 5px
+
+        *
+            margin: 12px 0
+
+        h3
+            font-size: 24px
+
+        img
+            height: 90px
+        
+        a
+            @include button(rgb(0, 136, 255), 3px)
+            margin-top: auto 
+
+        span
+            @include small-decorative-header
+                   
+        p
+            @include paragraph
+
+    @media screen and ( max-width: 920px )
+        grid-template-columns: 1fr
+        margin-top: 50px
+
+        .optionSection
+            grid-column-start: 1
+            grid-column-end: 2
+            margin: 10px
+            padding: 10px 20px
+            min-height: 50vh
+            max-width: 100%
+ 
+            p
+                @include paragraph($margin: 10px)    
+
+            a
+                justify-content: center
+                width: 90%
+
+.namingContests
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    margin-top: 100px
+    min-height: 80vh
+
+    .contestsHeader
+        text-align: center
+        margin-bottom: 60px
+        grid-column-start: 1
+        grid-column-end: 3 
+
+        h2
+            font-size: 32px
+
+        img
+            height: 90px
+            margin: 20px
+
+    
+    .contestSection
+        counter-reset: li
+   
+        li
+            display: flex
+            align-items: center
+            margin: 18px
+            counter-increment: li
+            max-width: 100%
+            border: 0.5px solid rgb(231, 231, 231)
+
+        span
+            color: rgb(0, 119, 255)
+            font-size: 60px
+            margin: 20px
+
+        p
+            @include paragraph
+            padding: 16px
+    
+    @media screen and ( max-width: 920px )
+        grid-template-columns: 1fr
+
+        .contestsHeader
+            grid-column-start: 1
+            grid-column-end: 2
+
+        & > img
+            width: 100%
+
+.QASection
+    display: flex
+    justify-content: flex-start
+    margin-top: 200px
+    max-width: 100%
+
+    .QAsidebar
+        display: flex
+        flex-direction: column
+        background-color: rgb(0, 119, 255)
+        border-radius: 5px
+        min-width: 240px
+        height: fit-content
+        padding: 16px 10px
+
+        a
+            color: rgb(219, 219, 219)
+            font-weight: 300
+            font-size: 14px
+            margin: 18px 25px
+            text-decoration: none
+
+
+        a:hover
+            cursor: pointer
+            color: white
+
+    .QAList
+        margin-bottom: 80px
+        margin-left: 60px
+        width: 100%
+
+        & > ul
+            margin: 40px 0
+
+        h3
+            color: rgb(0, 119, 255)
+            font-size: 24px
+            font-weight: 500
+
+        & > ul > li
+            border: 0.5px solid rgb(220, 220, 220)
+            border-radius: 5px
+            margin: 10px 0
+
+    @media screen and (max-width: 920px)
+        margin: 10px
+        flex-wrap: wrap
+        margin-top: 30px
+
+        .QAsidebar
+            width: 100%
+            margin: 30px 0
+
+        .QAList
+            margin: 10px

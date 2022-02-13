@@ -1,0 +1,63 @@
+$gap: 10px
+$container-margin: 10px
+@mixin media-query($display-width)
+    @media screen and (max-width: $display-width)
+        @content     
+    
+.buttonGroup
+    box-sizing: border-box
+    display: flex
+    max-width: 1140px
+    margin: auto
+    justify-content: center
+    gap: $gap
+
+    *
+        box-sizing: border-box
+
+    input[type='radio']
+        display: none
+
+    
+    input[type='radio']:checked + div
+        outline: 2px solid rgb(0, 147, 163)
+
+    
+    div
+        height: 100%
+        flex: 300px
+        max-width: 340px
+        text-align: center
+        border: .3px solid rgb(209, 209, 209)
+        padding: 32px
+        border-radius: 6px
+
+        span
+            display: block
+            font-size: 14px
+            padding: 10px
+            width: 60px
+            border-radius: 18px
+            margin: 0 auto
+            margin-bottom: 18px
+            color: white
+            background-color: rgb(0, 147, 163)
+
+        p
+            color: rgb(153, 153, 153)
+
+    div:hover
+        box-shadow: 0 0 12px 1px rgba(227, 227, 227, .5)
+
+    
+@include media-query($display-width: 1024px)
+    .buttonGroup
+        margin: $container-margin
+
+@include media-query($display-width: 480px)
+    .buttonGroup
+        flex-direction: column
+        
+        div
+            max-width: 700px
+

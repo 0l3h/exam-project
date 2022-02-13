@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import { useSelector } from 'react-redux'
-import styles from './EventsList.module.sass'
-import Event from '../Event/Event'
+import React, { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useSelector } from 'react-redux';
+import styles from './EventsList.module.sass';
+import Event from '../Event/Event';
 
-function EventsList (props) {
-  const events = useSelector(({ eventsStore: { events } }) => events)
+function EventsList () {
+  const events = useSelector(({ eventsStore: { events } }) => events);
 
   useEffect(() => {
-    localStorage.setItem('events', JSON.stringify(events))
+    localStorage.setItem('events', JSON.stringify(events));
 
     return () => {
-      localStorage.clear()
-    }
-  }, [events])
+      localStorage.clear();
+    };
+  }, [events]);
 
   return (
     <div className={styles.events}>
@@ -33,7 +33,7 @@ function EventsList (props) {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default EventsList
+export default EventsList;

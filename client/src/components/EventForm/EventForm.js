@@ -1,29 +1,29 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
-import { Formik } from 'formik'
-import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns'
-import { addNewEvent } from './../../actions/actionCreator'
-import Input from './Input/Input'
-import Schems from './../../validators/validationSchems'
-import styles from './EventForm.module.sass'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { Formik } from 'formik';
+import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns';
+import { addNewEvent } from './../../actions/actionCreator';
+import Input from './Input/Input';
+import Schems from './../../validators/validationSchems';
+import styles from './EventForm.module.sass';
 
-function EventForm (props) {
-  const dispatch = useDispatch()
+function EventForm () {
+  const dispatch = useDispatch();
 
   const initialValues = {
     eventName: '',
     eventDate: '',
     eventTime: '',
-    remindTime: ''
-  }
+    remindTime: '',
+  };
 
   const addEvent = (
     { eventName, eventDate, eventTime, remindTime },
     { resetForm }
   ) => {
-    const id = uuidv4()
-    const eventDateTime = Date.parse(`${eventDate}T${eventTime}`)
+    const id = uuidv4();
+    const eventDateTime = Date.parse(`${eventDate}T${eventTime}`);
 
     dispatch(
       addNewEvent({
@@ -33,12 +33,12 @@ function EventForm (props) {
         timeAmount: eventDateTime - Date.now(),
         remindTime:
           hoursToMilliseconds(remindTime.substring(0, 2)) +
-          minutesToMilliseconds(remindTime.substring(3))
+          minutesToMilliseconds(remindTime.substring(3)),
       })
-    )
+    );
 
-    resetForm()
-  }
+    resetForm();
+  };
 
   return (
     <Formik
@@ -80,7 +80,7 @@ function EventForm (props) {
         </form>
       )}
     </Formik>
-  )
+  );
 }
 
-export default EventForm
+export default EventForm;
